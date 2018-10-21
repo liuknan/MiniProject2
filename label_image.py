@@ -73,7 +73,7 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
-  file_name = "/Users/liuknan/Downloads/cars/SUV/06052.jpg"
+  file_name = "/Users/liuknan/Desktop/guy-with-two-penises-reddit.jpg"
   model_file = "/tmp/output_graph.pb"
   label_file = "/tmp/output_labels.txt"
   input_height = 299
@@ -136,4 +136,4 @@ if __name__ == "__main__":
   top_k = results.argsort()[-5:][::-1]
   labels = load_labels(label_file)
   for i in top_k:
-    print(labels[i], results[i])
+    print('%s (score = %.5f)' % (labels[i], results[i]))
