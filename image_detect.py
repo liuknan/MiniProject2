@@ -22,7 +22,7 @@ import numpy as np
 import tensorflow as tf
 
 class image_detect():
-    file_name = "/Users/liuknan/Desktop/guy-with-two-penises-reddit.jpg"
+    file_name = "/Users/liuknan/Desktop/banana.jpg"
     model_file = "/tmp/output_graph.pb"
     label_file = "/tmp/output_labels.txt"
     input_height = 299
