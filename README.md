@@ -1,5 +1,6 @@
 # MiniProject2
 It's a MiniPorject about image recognition
+You should install tensorflow and numpy before using it.
 
 ## 1.retrain.py  
   For image recognition, you need to train your model before you use it, so retrain.py is a good python program to train your own model. To use it, you need to program it with command line and run it with at least one argument "--image_dir". Then, the program will traverse the image directory and find all the images in it(the type of those images should be ".jpg"). After that, the program will train a model(or your model) with these images and output a ".pb" file, a label file to your "~/tmp/" path, which means you'd better not reboot your computer, or the new model and label will disappear(you could use some arguments to change the directory of the output path, I will list these arguments later)
