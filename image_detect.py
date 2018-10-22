@@ -17,14 +17,14 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-
+import  os
 import numpy as np
 import tensorflow as tf
 
 class image_detect():
-    file_name = "/Users/liuknan/Desktop/guy-with-two-penises-reddit.jpg"
+    file_name = "/Users/liuknan/Desktop/banana.jpg"
     model_file = "/tmp/output_graph.pb"
-    label_file = "/tmp/output_labels.txt"
+    label_file = "/tmp/123.txt"
     input_height = 299
     input_width = 299
     input_mean = 0
@@ -32,8 +32,7 @@ class image_detect():
     input_layer = "Placeholder"
     output_layer = "final_result"
     def __init__(self):
-        print('id')
-
+        pass
     def cfile(self,filename):
         image_detect.file_name=filename
     def cgraph(self,graph):
@@ -48,8 +47,12 @@ class image_detect():
       graph = tf.Graph()
       graph_def = tf.GraphDef()
 
-      with open(model_file, "rb") as f:
-        graph_def.ParseFromString(f.read())
+      try:
+          with open(model_file, "rb") as f:
+            graph_def.ParseFromString(f.read())
+      except FileNotFoundError:
+          print('No such file! Please input another file path')
+          exit()
       with graph.as_default():
         tf.import_graph_def(graph_def)
 
@@ -61,6 +64,9 @@ class image_detect():
                                     input_width=299,
                                     input_mean=0,
                                     input_std=255):
+      if not os.path.exists(file_name):
+          print('Image not exist')
+          exit()
       input_name = "file_reader"
       output_name = "normalized"
       file_reader = tf.read_file(file_name, input_name)
@@ -87,6 +93,9 @@ class image_detect():
 
     def load_labels(self,label_file):
       label = []
+      if not os.path.exists(label_file):
+          print('Label file not exist')
+          exit()
       proto_as_ascii_lines = tf.gfile.GFile(label_file).readlines()
       for l in proto_as_ascii_lines:
         label.append(l.rstrip())
