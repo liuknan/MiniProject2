@@ -16,7 +16,7 @@
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
+import os
 import argparse
 
 import numpy as np
@@ -24,6 +24,9 @@ import tensorflow as tf
 
 #load model
 def load_graph(model_file):
+  if not os.path.exists(model_file):
+    print('model not exists')
+    exit()
   graph = tf.Graph()
   graph_def = tf.GraphDef()
 
@@ -41,6 +44,9 @@ def read_tensor_from_image_file(file_name,
                                 input_mean=0,
                                 input_std=255):
 
+  if not os.path.exists(file_name):
+    print('image not exists')
+    exit()
   input_name = "file_reader"
   output_name = "normalized"
   file_reader = tf.read_file(file_name, input_name)
@@ -68,6 +74,9 @@ def read_tensor_from_image_file(file_name,
 
 #load label from label file
 def load_labels(label_file):
+  if not os.path.exists(label_file):
+    print('label_File not exists')
+    exit()
   label = []
   proto_as_ascii_lines = tf.gfile.GFile(label_file).readlines()
   for l in proto_as_ascii_lines:
