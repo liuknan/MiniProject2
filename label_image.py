@@ -73,7 +73,7 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
-  file_name = "/Users/liuknan/Desktop/guy-with-two-penises-reddit.jpg"
+  file_name = "/Users/liuknan/Desktop/banana.jpg"
   model_file = "/tmp/output_graph.pb"
   label_file = "/tmp/output_labels.txt"
   input_height = 299
