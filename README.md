@@ -77,3 +77,5 @@ How many training steps to run before ending.
 ## 3. example.py
 It's a poor example for image_detect API, try it!
   
+## 4. Compared with keras?
+Compared with tensorflow, Keras is more likely to be seen as an API of tensorflow. The Keras is easier to be used than tensorflow, which allows you to build a neural network in only a few minutes. People think Keras is more "pythonic". For tensorflow, since it's the basic of Keras, it has more functions than Keras, and you can adjust more things with tensorflow, which means you can control the whole network. So as a conclusion, Keras is easy to use for everyone, and tensorflow can be used to do some more specific jobs. At last, people think that tf.contrib.keras + tensorflow = everything you want, so the conbination of these two tools is a great way to use them, and we may try it in the future.
