@@ -22,7 +22,7 @@ import argparse
 import numpy as np
 import tensorflow as tf
 
-
+#load model
 def load_graph(model_file):
   graph = tf.Graph()
   graph_def = tf.GraphDef()
@@ -40,9 +40,11 @@ def read_tensor_from_image_file(file_name,
                                 input_width=299,
                                 input_mean=0,
                                 input_std=255):
+
   input_name = "file_reader"
   output_name = "normalized"
   file_reader = tf.read_file(file_name, input_name)
+  #to read different types of images
   if file_name.endswith(".png"):
     image_reader = tf.image.decode_png(
         file_reader, channels=3, name="png_reader")
@@ -58,12 +60,13 @@ def read_tensor_from_image_file(file_name,
   dims_expander = tf.expand_dims(float_caster, 0)
   resized = tf.image.resize_bilinear(dims_expander, [input_height, input_width])
   normalized = tf.divide(tf.subtract(resized, [input_mean]), [input_std])
+  #recognization
   sess = tf.Session()
   result = sess.run(normalized)
 
   return result
 
-
+#load label from label file
 def load_labels(label_file):
   label = []
   proto_as_ascii_lines = tf.gfile.GFile(label_file).readlines()
@@ -73,6 +76,7 @@ def load_labels(label_file):
 
 
 if __name__ == "__main__":
+  #set basic parameter for the program
   file_name = "/Users/liuknan/Desktop/banana.jpg"
   model_file = "/tmp/output_graph.pb"
   label_file = "/tmp/output_labels.txt"
@@ -82,7 +86,7 @@ if __name__ == "__main__":
   input_std = 255
   input_layer = "Placeholder"
   output_layer = "final_result"
-
+  #people who use command line can add argument to contral the program
   parser = argparse.ArgumentParser()
   parser.add_argument("--image", help="image to be processed")
   parser.add_argument("--graph", help="graph/model to be executed")
@@ -94,7 +98,7 @@ if __name__ == "__main__":
   parser.add_argument("--input_layer", help="name of input layer")
   parser.add_argument("--output_layer", help="name of output layer")
   args = parser.parse_args()
-
+  #to check if arguments exist
   if args.graph:
     model_file = args.graph
   if args.image:
@@ -132,7 +136,7 @@ if __name__ == "__main__":
         input_operation.outputs[0]: t
     })
   results = np.squeeze(results)
-
+  #output result
   top_k = results.argsort()[-5:][::-1]
   labels = load_labels(label_file)
   for i in top_k:
